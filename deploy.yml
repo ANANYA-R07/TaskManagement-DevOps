@@ -1,0 +1,14 @@
+---
+- name: Deploy Task Management API
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: Start Task API Docker container
+      community.docker.docker_container:
+        name: task-api
+        image: task-management-api:latest
+        state: started
+        restart_policy: unless-stopped
+        ports:
+          - "5000:5000"
