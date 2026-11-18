@@ -98,3 +98,4 @@ dist/
 # Environment files
 *.env
 *.env.*
+tasks.db
