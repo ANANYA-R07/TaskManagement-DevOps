@@ -2,8 +2,10 @@ import os
 import sqlite3
 from datetime import datetime
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 # Database configuration
 DB_PATH = os.environ.get("DB_PATH", "tasks.db")
@@ -163,4 +165,4 @@ def delete_task(task_id):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host='0.0.0.0', port=5000)
