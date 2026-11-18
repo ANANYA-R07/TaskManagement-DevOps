@@ -1,0 +1,100 @@
+# Byte-compiled / optimized / PYC files
+*.pyc
+*.pyo
+*.pyd
+
+# Distribution / packaging
+.Python
+build/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+var/
+venv/
+ENV/
+env/
+.pyenv/
+
+# PyInstaller
+*.boot
+pyinstaller/
+
+# Installer logs
+pip-log.txt
+pip-delete-error.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.cov
+.coveragerc
+nosetests.xml
+coverage.xml
+*.py,cover
+
+# Jupyter Notebook
+.ipynb
+
+# OS-specific
+.DS_Store
+.artifacts
+Thumbs.db
+
+# Virtual environments
+*venv*
+.venv
+
+# Local configurations
+*config*.py
+.env
+
+# Logs
+*.log
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Node.js
+*.npm
+*.lock
+
+# Temporary files
+*.tmp
+*.temp
+
+# Homebrew
+*Cellar*
+
+# gitignore for version control
+*.orig
+*.rej
+*.bak
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+.Macos
+
+# VSCode
+.vscode
+
+# IntelliJ
+.idea
+
+# build artifacts
+__pycache__/
+*.egg-info/
+dist/
+
+# Environment files
+*.env
+*.env.*
