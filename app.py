@@ -8,7 +8,8 @@ app = Flask(__name__)
 CORS(app)
 
 # Database configuration
-DB_PATH = os.environ.get("DB_PATH", "tasks.db")
+# Kubernetes will mount persistent storage at /data
+DB_PATH = os.environ.get("DB_PATH", "/data/tasks.db")
 
 
 def get_connection():
@@ -18,20 +19,22 @@ def get_connection():
 
 
 def init_db():
-    # Create the database directory if needed
+    # Create database directory if it does not exist
     os.makedirs(os.path.dirname(os.path.abspath(DB_PATH)), exist_ok=True)
 
     conn = get_connection()
-    conn.execute("""
-        CREATE TABLE IF NOT EXISTS tasks (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title TEXT NOT NULL,
-            description TEXT NOT NULL,
-            created_at TEXT NOT NULL
-        )
-    """)
-    conn.commit()
-    conn.close()
+    try:
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS tasks (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                title TEXT NOT NULL,
+                description TEXT NOT NULL,
+                created_at TEXT NOT NULL
+            )
+        """)
+        conn.commit()
+    finally:
+        conn.close()
 
 
 # Initialize database
@@ -86,7 +89,8 @@ def create_task():
     conn = get_connection()
     try:
         cursor = conn.execute(
-            "INSERT INTO tasks (title, description, created_at) VALUES (?, ?, ?)",
+            """INSERT INTO tasks (title, description, created_at)
+               VALUES (?, ?, ?)""",
             (title.strip(), description.strip(), created_at)
         )
         conn.commit()
@@ -124,7 +128,9 @@ def update_task(task_id):
     conn = get_connection()
     try:
         cursor = conn.execute(
-            "UPDATE tasks SET title = ?, description = ? WHERE id = ?",
+            """UPDATE tasks
+               SET title = ?, description = ?
+               WHERE id = ?""",
             (title.strip(), description.strip(), task_id)
         )
         conn.commit()
@@ -165,4 +171,5 @@ def delete_task(task_id):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
