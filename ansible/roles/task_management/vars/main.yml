@@ -1,0 +1,6 @@
+---
+app_name: task-management-api
+namespace: default
+deployment_file: k8s/deployment.yaml
+service_file: k8s/service.yaml
+pvc_file: k8s/pvc.yaml

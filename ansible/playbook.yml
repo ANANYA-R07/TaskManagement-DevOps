@@ -1,0 +1,8 @@
+---
+- name: Deploy Task Management API to Kubernetes
+  hosts: local
+  become: false
+
+  roles:
+    - task_management
+    
